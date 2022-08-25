@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read|write|none
+  contents: write
 
 jobs:
   build:
