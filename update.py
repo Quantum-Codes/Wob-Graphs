@@ -27,7 +27,8 @@ def track():
     y["following"].append(x["following"])
     y["posts"].append(x["posts"])
     y["timestamp"].append(int(time.time()))
-    with open("stats/"+x["user"]+".json", "w") as file:
+    y["name"] = x["user"]
+    with open(f"stats/{item}.json", "w") as file:
       file.write(json.dumps(y, indent=2))
 
 track()
