@@ -1,15 +1,19 @@
 {
   "followers": [
+    70,
     70
   ],
   "following": [
+    273,
     273
   ],
   "posts": [
+    263,
     263
   ],
   "timestamp": [
-    1661592044
+    1661592044,
+    1661592153
   ],
   "name": "non-biased-news"
 }

@@ -1,15 +1,19 @@
 {
   "followers": [
+    14,
     14
   ],
   "following": [
+    15,
     15
   ],
   "posts": [
+    5,
     5
   ],
   "timestamp": [
-    1661592047
+    1661592047,
+    1661592156
   ],
   "name": "archbtw"
 }
