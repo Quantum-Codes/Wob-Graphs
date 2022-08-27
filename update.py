@@ -21,7 +21,7 @@ def prev_stats(user):
 def track():
   for item in tracklist:
     x = stats(item)
-    y = prev_stats(x["user"])
+    y = prev_stats(item)
     print(history_struct)
     y["followers"].append(x["followers"])
     y["following"].append(x["following"])
