@@ -4,11 +4,11 @@ from copy import deepcopy
 headers = {"User-Agent":"@wasteof_bot by @Ankit_Anmol | Contact on wasteof-@ankit_anmol on github-@Quantum-Codes on discord(you have)"}
 history_struct = {"followers":[], "following":[], "posts":[], "timestamp":[]}
 try:
-  tracklist = requests.get("https://Wasteof-api-test.quantumcodes.repl.co/track", headers={"User-Agent" : "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36").json()
+  tracklist = requests.get("https://Wasteof-api-test.quantumcodes.repl.co/track", headers={"User-Agent" : "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36"}).json()
 except Exception as e:
   print(e)
   time.sleep(20)
-  tracklist = requests.get("https://Wasteof-api-test.quantumcodes.repl.co/track", headers={"User-Agent" : "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36").json()
+  tracklist = requests.get("https://Wasteof-api-test.quantumcodes.repl.co/track", headers={"User-Agent" : "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36"}).json()
 
 def stats(id):
   user = requests.get(f"https://api.wasteof.money/username-from-id/{id}",  headers=headers).json()["username"]
