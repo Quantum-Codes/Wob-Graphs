@@ -1,7 +1,7 @@
 import requests, os, json, datetime
 import base64
 import matplotlib.pyplot as plt
-from matplotlib.ticker import AutoMinorLocator
+#from matplotlib.ticker import AutoMinorLocator
 plt.style.use(['dark_background'])
 
 def upload_img(filename):
@@ -24,11 +24,12 @@ def graph(user, type):
    x.append(date[:-4] + date[-2:])
   plt.figure()
   plt.plot(x, y, "o--", c = "yellow", linewidth=3)
-  minor_locator = AutoMinorLocator(2)
-  plt.axes().xaxis.set_minor_locator(minor_locator)
-  plt.grid(which="minor")
+  #minor_locator = AutoMinorLocator(5)
+  #plt.axes().yaxis.set_yticklabels(tick_labels.astype(int))
+  plt.grid(c="#7a7a7a")
   plt.xlabel('Timestamp')
   plt.ylabel(type.title())
+  plt.ticklabel_format(style='sci')
   plt.xticks(rotation=45)
   plt.title(f"{data['name']}'s {type} graph")
   plt.tight_layout()
