@@ -1,15 +1,8 @@
-import requests, os, json, datetime
-import base64
+import requests, json, datetime
 import matplotlib.pyplot as plt
 #from matplotlib.ticker import AutoMinorLocator
 plt.style.use(['dark_background'])
 
-def upload_img(filename):
-  with open(filename, "rb") as image_file: 
-    img = base64.b64encode(image_file.read())
-
-  x = requests.post("https://api.imgbb.com/1/upload", data={"key":os.environ['key'], "image":img})
-  print(x.json()["data"]["url"])
 
 def graph(user, type):
   try:
@@ -29,11 +22,11 @@ def graph(user, type):
   plt.grid(c="#7a7a7a")
   plt.xlabel('Timestamp')
   plt.ylabel(type.title())
-  plt.ticklabel_format(style='sci')
+  #plt.ticklabel_format(style='sci')
   plt.xticks(rotation=45)
   plt.title(f"{data['name']}'s {type} graph")
   plt.tight_layout()
-  plt.savefig(f"images/{user}-{type}.svg")
+  plt.savefig(f"images/{user}-{type}.png", dpi=500)
   plt.close()
 
 #print(tracklist)
@@ -47,4 +40,5 @@ def graph_all():
     graph(item, "following")
     graph(item, "posts")
 
-graph("60db0c5a956cdbbd0489eff6", "posts")
+#graph("60db0c5a956cdbbd0489eff6", "posts")
+graph_all()
