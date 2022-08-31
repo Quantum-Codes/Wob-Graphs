@@ -1,7 +1,7 @@
 import requests, os, base64, time, json
 token = os.environ['Token']
 files = os.listdir("images")
-
+files.remove("README.md")
 
 def upload_img(filename):
   with open(f"images/{filename}", "rb") as image_file: 
