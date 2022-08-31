@@ -7,7 +7,7 @@ def upload_img(filename):
   with open(f"images/{filename}", "rb") as image_file: 
     img = base64.b64encode(image_file.read())
   #print(img)
-  x = requests.post("https://api.imgbb.com/1/upload", data={"key": token, "image":img, "expiration": 7*24*3600})
+  x = requests.post("https://api.imgbb.com/1/upload", data={"key": token, "image":img, "expiration": 24*3600})
   #print(x.json()["data"]["expiration"])
   return x.json()["data"]["url"]
 
