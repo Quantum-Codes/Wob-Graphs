@@ -1,5 +1,5 @@
 import requests, os, base64, time, json
-token = {{ secrets.TOKEN }}
+token = os.environ["Token"]
 files = os.listdir("images")
 files.remove("README.md")
 
