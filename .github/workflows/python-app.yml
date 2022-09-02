@@ -38,7 +38,7 @@ jobs:
       run: |
         python ping.py
         echo "Sleep started"
-        sleep 300
+        sleep 10
         python update.py
 
     - name: Push to github
