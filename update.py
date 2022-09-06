@@ -7,13 +7,12 @@ history_struct = {"followers":[], "following":[], "posts":[], "timestamp":[]}
 def get_list():
   return requests.get("https://Wasteof-api-test.quantumcodes.repl.co/track", headers={ "User-Agent" : "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36"}).json()
 
-
-try:
-  tracklist = get_list()
-except Exception as e:
-  print(e)
-  time.sleep(20) #wait for repl to wake up
-  tracklist = get_list()
+for i in range(5):
+  try:
+    tracklist = get_list()
+  except Exception as e:
+    print(i, e)
+    time.sleep(60) #wait for repl to wake up
   
 def stats(id):
   user = requests.get(f"https://api.wasteof.money/username-from-id/{id}",  headers=headers).json()["username"]
