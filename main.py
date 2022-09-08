@@ -45,7 +45,11 @@ def graph(user, type, multi=False):
 
 def graph_all():
   global lines
-  tracklist = requests.get("https://Wasteof-api-test.quantumcodes.repl.co/track", headers={ "User-Agent" : "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36"}).json()
+  try:
+    tracklist = requests.get("https://Wasteof-api-test.quantumcodes.repl.co/track", headers={ "User-Agent" : "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36"}).json()
+  except Exception:
+    with open("tracklist.json", "r") as file:
+      tracklist = json.loads(file.read())
 
   for item in tracklist:
     print(item)
