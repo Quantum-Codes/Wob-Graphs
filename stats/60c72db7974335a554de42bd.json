@@ -1,15 +1,19 @@
 {
   "followers": [
+    7,
     7
   ],
   "following": [
+    1,
     1
   ],
   "posts": [
+    4,
     4
   ],
   "timestamp": [
-    1662606986
+    1662606986,
+    1662693007
   ],
   "name": "grahamsh"
 }
