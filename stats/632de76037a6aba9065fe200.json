@@ -1,15 +1,19 @@
 {
   "followers": [
-    11
+    11,
+    12
   ],
   "following": [
+    17,
     17
   ],
   "posts": [
+    9,
     9
   ],
   "timestamp": [
-    1664550071
+    1664550071,
+    1665154807
   ],
   "name": "shellfish"
 }
