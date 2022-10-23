@@ -7,7 +7,7 @@ plt.style.use(['dark_background'])
 def graph(user, type, multi=False):
   if multi:
     global lines
-  plt.figure()
+  plt.figure(figsize=(8,6))
   if multi:
     for item in lines[type]:
       plt.plot(item[0], item[1], "o--", linewidth=3)
@@ -36,7 +36,7 @@ def graph(user, type, multi=False):
   #plt.ticklabel_format(style='sci')
   plt.xticks(rotation=45)
   plt.tight_layout()
-  plt.savefig(f"images/{user}-{type}.png", figsize=(8,6), dpi=50)
+  plt.savefig(f"images/{user}-{type}.png", dpi=50)
   plt.close()
   if not multi:
     return (x, y)
