@@ -7,7 +7,7 @@ plt.style.use(['dark_background'])
 def graph(user, type, multi=False):
   if multi:
     global lines
-  plt.figure(figsize=(8,6))
+  plt.figure()
   if multi:
     for item in lines[type]:
       plt.plot(item[0], item[1], "o--", linewidth=3)
