@@ -36,7 +36,7 @@ def graph(user, type, multi=False):
   #plt.ticklabel_format(style='sci')
   plt.xticks(rotation=45)
   plt.tight_layout()
-  plt.savefig(f"images/{user}-{type}.png", dpi=100)
+  plt.savefig(f"images/{user}-{type}.png", dpi=400)
   plt.close()
   if not multi:
     return (x, y)
