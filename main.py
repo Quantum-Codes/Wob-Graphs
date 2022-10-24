@@ -51,6 +51,7 @@ def graph_all():
     with open("tracklist.json", "r") as file:
       tracklist = json.loads(file.read())
 
+  tracklist = tuple(set(tracklist))
   for item in tracklist:
     print(item)
     lines["followers"].append(graph(item, "followers"))

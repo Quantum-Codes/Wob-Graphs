@@ -1,15 +1,19 @@
 {
   "followers": [
+    18,
     18
   ],
   "following": [
+    11,
     11
   ],
   "posts": [
+    8,
     8
   ],
   "timestamp": [
-    1666364671
+    1666364671,
+    1666598735
   ],
   "name": "sierralima"
 }
