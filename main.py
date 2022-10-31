@@ -18,7 +18,7 @@ def graph(user, type, multi=False):
       with open(f"stats/{user}.json", "r") as file:
         data = json.loads(file.read())
     except FileNotFoundError:
-      return
+      return "no file"
     y = data[type]
     x = []
     for item in data["timestamp"]:
@@ -27,9 +27,7 @@ def graph(user, type, multi=False):
     plt.plot(x, y, "o--", c = "yellow", linewidth=3)
     name = data['name']
     plt.title(f"{name}'s {type} graph")
-
-  #minor_locator = AutoMinorLocator(5)
-  #plt.axes().yaxis.set_yticklabels(tick_labels.astype(int))
+    
   plt.grid(c="#7a7a7a")
   plt.xlabel('Timestamp')
   plt.ylabel(type.title())
@@ -54,13 +52,18 @@ def graph_all():
   tracklist = tuple(set(tracklist))
   for item in tracklist:
     print(item)
-    lines["followers"].append(graph(item, "followers"))
-    lines["following"].append(graph(item, "following"))
-    lines["posts"].append(graph(item, "posts"))
+    ab, bc, ac = graph(item, "followers"), graph(item, "following"), graph(item, "posts") #yes I know good var names
+    if ab == "no file":
+      continue
+    lines["followers"].append(ab)
+    lines["following"].append(bc)
+    lines["posts"].append(ac)
 
 #graph("60db0c5a956cdbbd0489eff6", "posts")
 lines = {"following": [], "followers": [], "posts": []}
 graph_all()
+with open("stats/wasteof.json", "w") as file:
+  file.write(json.dumps(lines, indent=2))
 graph("Wasteof", "posts", True)
 graph("Wasteof", "followers", True)
 graph("Wasteof", "following", True)

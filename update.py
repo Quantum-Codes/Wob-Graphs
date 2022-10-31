@@ -16,7 +16,7 @@ for i in range(5):
  
 if type(tracklist) is list:
   with open("tracklist.json", "w") as file:
-    file.write(json.dumps(tracklist))
+    file.write(json.dumps(tracklist, indent=2))
   
 def stats(id):
   user = requests.get(f"https://api.wasteof.money/username-from-id/{id}",  headers=headers).json()["username"]
