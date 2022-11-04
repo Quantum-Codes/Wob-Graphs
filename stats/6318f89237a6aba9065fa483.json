@@ -1,15 +1,19 @@
 {
   "followers": [
+    12,
     12
   ],
   "following": [
+    10,
     10
   ],
   "posts": [
-    14
+    14,
+    15
   ],
   "timestamp": [
-    1666968593
+    1666968593,
+    1667573557
   ],
   "name": "gosoccerboy6"
 }

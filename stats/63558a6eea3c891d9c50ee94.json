@@ -1,15 +1,19 @@
 {
   "followers": [
+    4,
     4
   ],
   "following": [
+    2,
     2
   ],
   "posts": [
-    9
+    9,
+    11
   ],
   "timestamp": [
-    1666968592
+    1666968592,
+    1667573571
   ],
   "name": "bezier"
 }
