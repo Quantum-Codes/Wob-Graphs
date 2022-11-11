@@ -1,15 +1,19 @@
 {
   "followers": [
-    28
+    28,
+    33
   ],
   "following": [
+    0,
     0
   ],
   "posts": [
-    50
+    50,
+    57
   ],
   "timestamp": [
-    1667573565
+    1667573565,
+    1668177954
   ],
   "name": "showerthoughtsbot"
 }
