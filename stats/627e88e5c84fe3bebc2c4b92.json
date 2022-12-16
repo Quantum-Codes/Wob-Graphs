@@ -1,15 +1,19 @@
 {
   "followers": [
+    21,
     21
   ],
   "following": [
+    29,
     29
   ],
   "posts": [
-    67
+    67,
+    69
   ],
   "timestamp": [
-    1670596912
+    1670596912,
+    1671201716
   ],
   "name": "joebiden"
 }
