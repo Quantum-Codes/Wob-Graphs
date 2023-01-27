@@ -10,6 +10,7 @@ def get_list():
 for i in range(5):
   try:
     tracklist = get_list()
+    print("got live data!")
   except Exception as e:
     print(i, e)
     time.sleep(60) #wait for repl to wake up
@@ -35,7 +36,7 @@ def track():
   for item in tracklist:
     x = stats(item)
     y = prev_stats(item)
-    print(history_struct)
+    print(y,"being updated")
     y["followers"].append(x["followers"])
     y["following"].append(x["following"])
     y["posts"].append(x["posts"])
