@@ -36,7 +36,7 @@ def track():
   for item in tracklist:
     x = stats(item)
     y = prev_stats(item)
-    print(y,"being updated")
+    print(x,"being updated")
     y["followers"].append(x["followers"])
     y["following"].append(x["following"])
     y["posts"].append(x["posts"])
