@@ -27,12 +27,15 @@ def graph(user, type, multi=False):
     plt.plot(x, y, "o--", c = "yellow", linewidth=3)
     name = data['name']
     plt.title(f"{name}'s {type} graph")
-    
+
+  if len(x) > 25:
+    label_x = x.copy()
+    label_x[1::2] = len(label_x[1::2]) * [""] #alternate position blank. leaves the first item
   plt.grid(c="#7a7a7a")
   plt.xlabel('Timestamp')
   plt.ylabel(type.title())
   #plt.ticklabel_format(style='sci')
-  plt.xticks(rotation=45)
+  plt.xticks(rotation=45, labels = label_x, ticks = x)
   plt.tight_layout()
   plt.savefig(f"images/{user}-{type}.png", dpi=100)
   plt.close()
@@ -60,6 +63,7 @@ def graph_all():
     lines["posts"].append(ac)
 
 #graph("60db0c5a956cdbbd0489eff6", "posts")
+#"""
 lines = {"following": [], "followers": [], "posts": []}
 graph_all()
 with open("stats/wasteof.json", "w") as file:
@@ -67,3 +71,4 @@ with open("stats/wasteof.json", "w") as file:
 graph("Wasteof", "posts", True)
 graph("Wasteof", "followers", True)
 graph("Wasteof", "following", True)
+#"""

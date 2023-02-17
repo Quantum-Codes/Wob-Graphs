@@ -7,6 +7,7 @@ history_struct = {"followers":[], "following":[], "posts":[], "timestamp":[]}
 def get_list():
   return requests.get("https://Wasteof-api-test.quantumcodes.repl.co/track", headers={ "User-Agent" : "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36"}).json()
 
+tracklist = 0
 for i in range(5):
   try:
     tracklist = get_list()
@@ -18,6 +19,10 @@ for i in range(5):
 if type(tracklist) is list:
   with open("tracklist.json", "w") as file:
     file.write(json.dumps(tracklist, indent=2))
+elif tracklist == 0:
+  with open("tracklist.json", "r") as file:
+    tracklist = json.load(file)
+    print("old data :(")
   
 def stats(id):
   user = requests.get(f"https://api.wasteof.money/username-from-id/{id}",  headers=headers).json()["username"]
