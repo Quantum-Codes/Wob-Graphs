@@ -28,8 +28,8 @@ def graph(user, type, multi=False):
     name = data['name']
     plt.title(f"{name}'s {type} graph")
 
+  label_x = x.copy()
   if len(x) > 25:
-    label_x = x.copy()
     label_x[1::2] = len(label_x[1::2]) * [""] #alternate position blank. leaves the first item
   plt.grid(c="#7a7a7a")
   plt.xlabel('Timestamp')
