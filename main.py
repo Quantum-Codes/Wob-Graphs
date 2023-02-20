@@ -73,7 +73,7 @@ def graph_all():
 lines = {"following": [], "followers": [], "posts": []}
 graph_all()
 with open("stats/wasteof.json", "w") as file:
-  json.dump(lines, indent=2)
+  json.dump(file, lines, indent=2)
 #with open("stats/wasteof.json", "r") as file:
 #  lines = json.load(file)
 graph("Wasteof", "posts", True)
