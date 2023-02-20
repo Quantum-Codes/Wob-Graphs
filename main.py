@@ -40,9 +40,10 @@ def graph(user, type, multi=False):
   if len(label_x) > 25:
     label_x[1::2] = len(label_x[1::2]) * [""] #alternate position blank. leaves the first item
     print(label_x)
-    axes.set_xticklabels(label_x, rotation=45)
+  axes.set_xticklabels(label_x, rotation=45)
   #plt.xticks(rotation=45, labels = label_x, ticks = x)
   plt.tight_layout()
+  print(f"Created for {name}")
   plt.savefig(f"images/{user}-{type}.png", dpi=100)
   plt.close()
   if not multi:
