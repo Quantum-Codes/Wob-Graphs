@@ -71,11 +71,11 @@ def graph_all():
 #graph("60db0c5a956cdbbd0489eff6", "posts")
 #"""
 lines = {"following": [], "followers": [], "posts": []}
-#graph_all()
-#with open("stats/wasteof.json", "w") as file:
-#  json.dump(lines, indent=2)
-with open("stats/wasteof.json", "r") as file:
-  lines = json.load(file)
+graph_all()
+with open("stats/wasteof.json", "w") as file:
+  json.dump(lines, indent=2)
+#with open("stats/wasteof.json", "r") as file:
+#  lines = json.load(file)
 graph("Wasteof", "posts", True)
 graph("Wasteof", "followers", True)
 graph("Wasteof", "following", True)
