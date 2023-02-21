@@ -11,6 +11,7 @@ def upload_img(filename):
   #print(x.json()["data"]["expiration"])
   if x.status_code != 200:
     print(x.status_code)
+    print(vars(x))
     time.sleep(2)
     x = requests.post("https://api.imgbb.com/1/upload", data={"key": token, "image":img, "expiration": 14*24*3600})
   return x.json()["data"]["url"]
