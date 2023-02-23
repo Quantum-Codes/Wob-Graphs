@@ -1,12 +1,6 @@
 import requests, json, datetime
 import matplotlib.pyplot as plt
-"""
-FORST CREATE SET WITH ALL XTICK, DONT PLOT ANYTHING
-WHEN PLOTTING EACH LINE, CHECK FOR INDEX OF THAT DATE IN THE LIST 
-PLOT ACCORDING TO THE LIST INDEX
-FINALLY SET X LABELS AND TICKS WITH XTICKS() (hopefully doesn't cause probelm)
-if problem, use set_xticklabels() and ignore warning forever
-"""
+
 
 def graph(user, type1, light, multi=False):
   if light:
@@ -17,15 +11,18 @@ def graph(user, type1, light, multi=False):
   if multi:
     global lines
     all_time = set()
-    for item in lines[type1]:
+    for item in lines[type1]: #generate list of dates
       datelist = [datetime.datetime.strptime(datetime.datetime.utcfromtimestamp(i).strftime("%d-%m-%y"), "%d-%m-%y") for i in item[0]]
       all_time = all_time.union(datelist)
-      plt.plot(datelist, item[1], "o--", linewidth=3)
-    name = "Wasteof"
-    plt.title(f"wasteof.money's aggregate {type1} graph")
     all_time = list(all_time)
     all_time.sort()
-    #print(all_time)
+    plt.xticks(range(len(all_time)), [item.strftime("%d-%m-%y") for item in all_time]) #pre position xticks uniformly
+    for item in lines[type1]:
+      datelist = [datetime.datetime.strptime(datetime.datetime.utcfromtimestamp(i).strftime("%d-%m-%y"), "%d-%m-%y") for i in item[0]]
+      xpos = [all_time.index(i) for i in datelist]
+      plt.plot(xpos, item[1], "o--", linewidth=3) #use the generated position and plot
+    name = "Wasteof"
+    plt.title(f"wasteof.money's aggregate {type1} graph")
   else:
     try:
       with open(f"stats/{user}.json", "r") as file:
@@ -49,13 +46,8 @@ def graph(user, type1, light, multi=False):
   fig.canvas.draw() #to update x labels, stuff
   axes = plt.gca()
   label_x = axes.get_xticklabels()
-  if multi:
-    print(len(label_x), len(all_time))
-    plt.xticks(range(len(all_time)), [item.strftime("%d-%m-%y") for item in all_time])
-    #print(x, len(x))
-    #label_x = [item.get_text() for item in label_x]
   if len(label_x) > 25:
-    #label_x[1::2] = len(label_x[1::2]) * [""] #alternate position blank. leaves the first item
+    #label_x[1::2] = len(label_x[1::2]) * [""] #alternate position blank. leaves the first item (old method)
     for label in label_x[::2]: #remove slice and add if enumerate label % 3 = 0 for every 3rd label remove
       label.set_visible(False)
   #axes.set_xticklabels(label_x, rotation=45)
@@ -91,7 +83,7 @@ def graph_all(first=1):
       lines["posts"].append(ac)
 
 #plt.style.use("dark_background")
-#"""
+"""
 #graph("60db0c5a956cdbbd0489eff6", "posts", light=1)
 with open("stats/wasteof.json", "r") as file:
   lines = json.load(file)
@@ -115,6 +107,6 @@ def start_graph():
     graph("Wasteof", "posts", i, True) #graph light mode first
     graph("Wasteof", "followers", i, True)
     graph("Wasteof", "following", i, True)
-
-#start_graph()
+    
+start_graph()
 
