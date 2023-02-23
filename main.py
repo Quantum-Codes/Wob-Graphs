@@ -1,9 +1,13 @@
 import requests, json, datetime
 import matplotlib.pyplot as plt
-plt.style.use(['dark_background'])
+plt.style.use('dark_background')
 
 
 def graph(user, type, multi=False, light=False):
+  if light:
+    c = None #use default
+  else:
+    c = "yellow"
   if multi:
     global lines
   fig = plt.figure()
@@ -23,7 +27,7 @@ def graph(user, type, multi=False, light=False):
     for item in data["timestamp"]:
       date = datetime.datetime.utcfromtimestamp(item).strftime('%d-%m-%Y')
       x.append(date[:-4] + date[-2:])
-    plt.plot(x, y, "o--", c = "yellow", linewidth=3)
+    plt.plot(x, y, "o--", c = c, linewidth=3)
     name = data['name']
     plt.title(f"{name}'s {type} graph")
   
@@ -72,13 +76,15 @@ def graph_all(first=True):
       lines["following"].append(bc)
       lines["posts"].append(ac)
 
-plt.style.use(["bmh"])
+plt.style.use("default")
+plt.style.use("bmh")
 graph("60db0c5a956cdbbd0489eff6", "posts", light=True)
 """
 lines = {"following": [], "followers": [], "posts": []}
 graph_all()
 with open("stats/wasteof.json", "w") as file:
   json.dump(lines, file, indent=2)
+
 #with open("stats/wasteof.json", "r") as file:
 #  lines = json.load(file)
 graph("Wasteof", "posts", True)
