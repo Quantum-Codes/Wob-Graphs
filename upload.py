@@ -18,12 +18,12 @@ def upload_img(filename, folder):
   return x.json()["data"]["url"]
 
 url = {}
-for item in files:
+for item in files: #dark mode
   print("wip dark", item)
   url["dark_" + item] = upload_img(item, "images")
   time.sleep(0.5)
 
-for item in files:
+for item in files: #light mode
   print("wip light", item)
   url["light_" + item] = upload_img(item, "lightimages")
   time.sleep(0.5)
