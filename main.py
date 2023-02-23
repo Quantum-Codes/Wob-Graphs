@@ -90,7 +90,7 @@ for i in range(1,-1,-1): #value = 1, 0 -> 1=lightmode 0=darkmode also
       json.dump(lines, file, indent=2)
   #with open("stats/wasteof.json", "r") as file:
   #  lines = json.load(file)
-  graph("Wasteof", "posts", True, i) #graph light mode first
-  graph("Wasteof", "followers", True, i)
-  graph("Wasteof", "following", True, i)
+  graph("Wasteof", "posts", i, True) #graph light mode first
+  graph("Wasteof", "followers", i, True)
+  graph("Wasteof", "following", i, True)
 #"""
