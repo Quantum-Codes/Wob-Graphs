@@ -30,7 +30,7 @@ def graph(user, type1, light, multi=False):
     plt.title(f"{name}'s {type1} graph")
   
 
-  plt.grid(True)#c="#7a7a7a")
+  plt.grid(True, ls= "--", c="#7a7a7a")
   plt.xlabel('Timestamp')
   plt.ylabel(type1.title())
   fig.canvas.draw() #to update x labels, stuff
@@ -45,7 +45,7 @@ def graph(user, type1, light, multi=False):
   #axes.set_xticklabels(label_x, rotation=45)
   plt.xticks(rotation=45)
   plt.tight_layout()
-  print(f"Created for {name}")
+  print(f"Created for {name}", "dark" if light==0 else "light")
   folder = "images"
   if light:
     folder = "lightimages"
@@ -65,7 +65,7 @@ def graph_all(first=1):
 
   tracklist = tuple(set(tracklist))
   for item in tracklist:
-    print(item)
+    print(item, "dark" if first==0 else "light")
     ab, bc, ac = graph(item, "followers", first), graph(item, "following", first), graph(item, "posts", first) #yes I know good var names. also graph light mode first 
     if ab == "no file":
       continue
