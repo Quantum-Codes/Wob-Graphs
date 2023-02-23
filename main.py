@@ -1,8 +1,12 @@
 import requests, json, datetime
 import matplotlib.pyplot as plt
-from matplotlib.dates import DateFormatter, date2num
-formatter = DateFormatter('%d-%m-%y', interval_multiples=False)
-
+"""
+FORST CREATE SET WITH ALL XTICK, DONT PLOT ANYTHING
+WHEN PLOTTING EACH LINE, CHECK FOR INDEX OF THAT DATE IN THE LIST 
+PLOT ACCORDING TO THE LIST INDEX
+FINALLY SET X LABELS AND TICKS WITH XTICKS() (hopefully doesn't cause probelm)
+if problem, use set_xticklabels() and ignore warning forever
+"""
 
 def graph(user, type1, light, multi=False):
   if light:
@@ -10,15 +14,18 @@ def graph(user, type1, light, multi=False):
   else:
     c = "yellow"
   fig = plt.figure()
-  plt.gca().xaxis.set_major_formatter(formatter)
   if multi:
     global lines
+    all_time = set()
     for item in lines[type1]:
-      x_dates = [datetime.datetime.strptime(j, "%d-%m-%y") for j in item[0]]
-      print(len(x_dates))
-      plt.plot(x_dates, item[1], "o--", linewidth=3)
+      datelist = [datetime.datetime.strptime(datetime.datetime.utcfromtimestamp(i).strftime("%d-%m-%y"), "%d-%m-%y") for i in item[0]]
+      all_time = all_time.union(datelist)
+      plt.plot(datelist, item[1], "o--", linewidth=3)
     name = "Wasteof"
     plt.title(f"wasteof.money's aggregate {type1} graph")
+    all_time = list(all_time)
+    all_time.sort()
+    #print(all_time)
   else:
     try:
       with open(f"stats/{user}.json", "r") as file:
@@ -28,10 +35,10 @@ def graph(user, type1, light, multi=False):
     y = data[type1]
     x = []
     for item in data["timestamp"]:
-      date = datetime.datetime.utcfromtimestamp(item)
+      date = datetime.datetime.utcfromtimestamp(item).strftime("%d-%m-%y")
       x.append(date)
-    plt.plot(x, y, "o--", c = c, linewidth=3)
-    #plt.xticks(data["timestamp"], x)
+    plt.plot(range(len(data["timestamp"])), y, "o--", c = c, linewidth=3) #for even spaces
+    plt.xticks(range(len(data["timestamp"])), x)
     name = data['name']
     plt.title(f"{name}'s {type1} graph")
   
@@ -42,10 +49,11 @@ def graph(user, type1, light, multi=False):
   fig.canvas.draw() #to update x labels, stuff
   axes = plt.gca()
   label_x = axes.get_xticklabels()
-  ##x = axes.get_ticks()
-  #label_x = [item.get_text() for item in label_x]
-  #plt.savefig("images/123test.png", dpi=100)
-  print(len(label_x))
+  if multi:
+    print(len(label_x), len(all_time))
+    plt.xticks(range(len(all_time)), [item.strftime("%d-%m-%y") for item in all_time])
+    #print(x, len(x))
+    #label_x = [item.get_text() for item in label_x]
   if len(label_x) > 25:
     #label_x[1::2] = len(label_x[1::2]) * [""] #alternate position blank. leaves the first item
     for label in label_x[::2]: #remove slice and add if enumerate label % 3 = 0 for every 3rd label remove
@@ -60,7 +68,7 @@ def graph(user, type1, light, multi=False):
   plt.savefig(f"{folder}/{user}-{type1}.png", dpi=100)
   plt.close()
   if not multi:
-    return (x, y)
+    return (data["timestamp"], y)
 
 
 def graph_all(first=1):
@@ -82,10 +90,13 @@ def graph_all(first=1):
       lines["following"].append(bc)
       lines["posts"].append(ac)
 
-graph("60db0c5a956cdbbd0489eff6", "posts", light=True)
+#plt.style.use("dark_background")
+#"""
+#graph("60db0c5a956cdbbd0489eff6", "posts", light=1)
 with open("stats/wasteof.json", "r") as file:
   lines = json.load(file)
 graph("Wasteof", "posts", 1, True)
+#"""
 
 lines = {"following": [], "followers": [], "posts": []}
 def start_graph():
