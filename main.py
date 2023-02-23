@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 plt.style.use(['dark_background'])
 
 
-def graph(user, type, multi=False):
+def graph(user, type, multi=False, light=False):
   if multi:
     global lines
   fig = plt.figure()
@@ -44,13 +44,16 @@ def graph(user, type, multi=False):
   #plt.xticks(rotation=45, labels = label_x, ticks = x)
   plt.tight_layout()
   print(f"Created for {name}")
-  plt.savefig(f"images/{user}-{type}.png", dpi=100)
+  folder = "images"
+  if light:
+    folder = "lightimages"
+  plt.savefig(f"{folder}/{user}-{type}.png", dpi=100)
   plt.close()
   if not multi:
     return (x, y)
 
 
-def graph_all():
+def graph_all(first=True):
   global lines
   try:
     tracklist = requests.get("https://Wasteof-api-test.quantumcodes.repl.co/track", headers={ "User-Agent" : "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36"}).json()
@@ -64,13 +67,14 @@ def graph_all():
     ab, bc, ac = graph(item, "followers"), graph(item, "following"), graph(item, "posts") #yes I know good var names
     if ab == "no file":
       continue
-    lines["followers"].append(ab)
-    lines["following"].append(bc)
-    lines["posts"].append(ac)
+    if first: #collect data only first time
+      lines["followers"].append(ab)
+      lines["following"].append(bc)
+      lines["posts"].append(ac)
 
-
-#graph("60db0c5a956cdbbd0489eff6", "posts")
-#"""
+plt.style.use(["bmh"])
+graph("60db0c5a956cdbbd0489eff6", "posts", light=True)
+"""
 lines = {"following": [], "followers": [], "posts": []}
 graph_all()
 with open("stats/wasteof.json", "w") as file:
