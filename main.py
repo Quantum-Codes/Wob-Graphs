@@ -1,17 +1,15 @@
 import requests, json, datetime
 import matplotlib.pyplot as plt
-plt.style.use('dark_background')
 
 
-def graph(user, type1, multi=False, light=False):
+def graph(user, type1, light, multi=False):
   if light:
     c = None #use default
   else:
     c = "yellow"
-  if multi:
-    global lines
   fig = plt.figure()
   if multi:
+    global lines
     for item in lines[type1]:
       plt.plot(item[0], item[1], "o--", linewidth=3)
     name = "Wasteof"
@@ -32,7 +30,7 @@ def graph(user, type1, multi=False, light=False):
     plt.title(f"{name}'s {type1} graph")
   
 
-  plt.grid(c="#7a7a7a")
+  plt.grid(True)#c="#7a7a7a")
   plt.xlabel('Timestamp')
   plt.ylabel(type1.title())
   fig.canvas.draw() #to update x labels, stuff
@@ -57,7 +55,7 @@ def graph(user, type1, multi=False, light=False):
     return (x, y)
 
 
-def graph_all(first=True):
+def graph_all(first=1):
   global lines
   try:
     tracklist = requests.get("https://Wasteof-api-test.quantumcodes.repl.co/track", headers={ "User-Agent" : "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36"}).json()
@@ -68,7 +66,7 @@ def graph_all(first=True):
   tracklist = tuple(set(tracklist))
   for item in tracklist:
     print(item)
-    ab, bc, ac = graph(item, "followers"), graph(item, "following"), graph(item, "posts") #yes I know good var names
+    ab, bc, ac = graph(item, "followers", first), graph(item, "following", first), graph(item, "posts", first) #yes I know good var names. also graph light mode first 
     if ab == "no file":
       continue
     if first: #collect data only first time
@@ -76,18 +74,23 @@ def graph_all(first=True):
       lines["following"].append(bc)
       lines["posts"].append(ac)
 
-plt.style.use("default")
-plt.style.use("bmh")
-graph("60db0c5a956cdbbd0489eff6", "posts", light=True)
+#graph("60db0c5a956cdbbd0489eff6", "posts", light=True)
 #"""
 lines = {"following": [], "followers": [], "posts": []}
-#graph_all()
-#with open("stats/wasteof.json", "w") as file:
-#  json.dump(lines, file, indent=2)
+for i in range(1,-1,-1): #value = 1, 0 -> 1=lightmode 0=darkmode also
+  plt.style.use("default") #reset style. else stylesheets merge
+  if i == 1:
+    plt.style.use("bmh") #light style
+  else:
+    plt.style.use('dark_background')
 
-with open("stats/wasteof.json", "r") as file:
-  lines = json.load(file)
-graph("Wasteof", "posts", True, True)
-graph("Wasteof", "followers", True, True)
-graph("Wasteof", "following", True, True)
+  graph_all(i)
+  if i == 1:
+    with open("stats/wasteof.json", "w") as file:
+      json.dump(lines, file, indent=2)
+  #with open("stats/wasteof.json", "r") as file:
+  #  lines = json.load(file)
+  graph("Wasteof", "posts", True, i) #graph light mode first
+  graph("Wasteof", "followers", True, i)
+  graph("Wasteof", "following", True, i)
 #"""
