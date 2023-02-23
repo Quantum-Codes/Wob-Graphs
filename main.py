@@ -1,5 +1,7 @@
 import requests, json, datetime
 import matplotlib.pyplot as plt
+from matplotlib.dates import DateFormatter, date2num
+formatter = DateFormatter('%d-%m-%y')
 
 
 def graph(user, type1, light, multi=False):
@@ -8,10 +10,13 @@ def graph(user, type1, light, multi=False):
   else:
     c = "yellow"
   fig = plt.figure()
+  plt.gca().xaxis.set_major_formatter(formatter)
   if multi:
     global lines
     for item in lines[type1]:
-      plt.plot(item[0], item[1], "o--", linewidth=3)
+      x_dates = [datetime.datetime.strptime(j, "%d-%m-%y") for j in item[0]]
+      print(len(x_dates))
+      plt.plot(x_dates, item[1], "o--", linewidth=3)
     name = "Wasteof"
     plt.title(f"wasteof.money's aggregate {type1} graph")
   else:
@@ -21,11 +26,12 @@ def graph(user, type1, light, multi=False):
     except FileNotFoundError:
       return "no file"
     y = data[type1]
-    x = []
-    for item in data["timestamp"]:
-      date = datetime.datetime.utcfromtimestamp(item).strftime('%d-%m-%Y')
-      x.append(date[:-4] + date[-2:])
-    plt.plot(x, y, "o--", c = c, linewidth=3)
+    # x = []
+    # for item in data["timestamp"]:
+    #   date = datetime.datetime.utcfromtimestamp(item).strftime('%d-%m-%y')
+    #   x.append(date)
+    plt.plot(data["timestamp"], y, "o--", c = c, linewidth=3)
+    #plt.xticks(data["timestamp"], x)
     name = data['name']
     plt.title(f"{name}'s {type1} graph")
   
@@ -38,6 +44,8 @@ def graph(user, type1, light, multi=False):
   label_x = axes.get_xticklabels()
   ##x = axes.get_ticks()
   #label_x = [item.get_text() for item in label_x]
+  #plt.savefig("images/123test.png", dpi=100)
+  print(len(label_x))
   if len(label_x) > 25:
     #label_x[1::2] = len(label_x[1::2]) * [""] #alternate position blank. leaves the first item
     for label in label_x[::2]: #remove slice and add if enumerate label % 3 = 0 for every 3rd label remove
@@ -74,23 +82,28 @@ def graph_all(first=1):
       lines["following"].append(bc)
       lines["posts"].append(ac)
 
-#graph("60db0c5a956cdbbd0489eff6", "posts", light=True)
-#"""
-lines = {"following": [], "followers": [], "posts": []}
-for i in range(1,-1,-1): #value = 1, 0 -> 1=lightmode 0=darkmode also
-  plt.style.use("default") #reset style. else stylesheets merge
-  if i == 1:
-    plt.style.use("bmh") #light style
-  else:
-    plt.style.use('dark_background')
+graph("60db0c5a956cdbbd0489eff6", "posts", light=True)
+with open("stats/wasteof.json", "r") as file:
+  lines = json.load(file)
+graph("Wasteof", "posts", 1, True)
 
-  graph_all(i)
-  if i == 1:
-    with open("stats/wasteof.json", "w") as file:
-      json.dump(lines, file, indent=2)
-  #with open("stats/wasteof.json", "r") as file:
-  #  lines = json.load(file)
-  graph("Wasteof", "posts", i, True) #graph light mode first
-  graph("Wasteof", "followers", i, True)
-  graph("Wasteof", "following", i, True)
-#"""
+lines = {"following": [], "followers": [], "posts": []}
+def start_graph():
+  global lines
+  for i in range(1,-1,-1): #value = 1, 0 -> 1=lightmode 0=darkmode also
+    plt.style.use("default") #reset style. else stylesheets merge
+    if i == 1:
+      plt.style.use("bmh") #light style
+    else:
+      plt.style.use('dark_background')
+  
+    graph_all(i)
+    if i == 1:
+      with open("stats/wasteof.json", "w") as file:
+        json.dump(lines, file, indent=2)
+    graph("Wasteof", "posts", i, True) #graph light mode first
+    graph("Wasteof", "followers", i, True)
+    graph("Wasteof", "following", i, True)
+
+#start_graph()
+
