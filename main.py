@@ -1,7 +1,7 @@
 import requests, json, datetime
 import matplotlib.pyplot as plt
 from matplotlib.dates import DateFormatter, date2num
-formatter = DateFormatter('%d-%m-%y')
+formatter = DateFormatter('%d-%m-%y', interval_multiples=False)
 
 
 def graph(user, type1, light, multi=False):
@@ -26,11 +26,11 @@ def graph(user, type1, light, multi=False):
     except FileNotFoundError:
       return "no file"
     y = data[type1]
-    # x = []
-    # for item in data["timestamp"]:
-    #   date = datetime.datetime.utcfromtimestamp(item).strftime('%d-%m-%y')
-    #   x.append(date)
-    plt.plot(data["timestamp"], y, "o--", c = c, linewidth=3)
+    x = []
+    for item in data["timestamp"]:
+      date = datetime.datetime.utcfromtimestamp(item)
+      x.append(date)
+    plt.plot(x, y, "o--", c = c, linewidth=3)
     #plt.xticks(data["timestamp"], x)
     name = data['name']
     plt.title(f"{name}'s {type1} graph")
