@@ -8,15 +8,14 @@ files_light.remove("README.md")
 def upload_img(filename, folder):
   with open(f"{folder}/{filename}", "rb") as image_file: 
     img = base64.b64encode(image_file.read())
-  """
+    
   x = requests.post("https://api.imgbb.com/1/upload", data={"key": token, "image":img, "expiration": 14*24*3600}) #expire in 2 weeks
   if x.status_code != 200:
     print(x.status_code)
     print(vars(x))
     time.sleep(2)
     x = requests.post("https://api.imgbb.com/1/upload", data={"key": token, "image":img, "expiration": 14*24*3600})
-  """
-  return "a"#x.json()["data"]["url"]
+  return x.json()["data"]["url"]
 
 url = {}
 for item in files:
