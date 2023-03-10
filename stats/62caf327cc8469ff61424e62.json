@@ -1,15 +1,19 @@
 {
   "followers": [
+    24,
     24
   ],
   "following": [
+    20,
     20
   ],
   "posts": [
-    82
+    82,
+    83
   ],
   "timestamp": [
-    1677854542
+    1677854542,
+    1678459414
   ],
   "name": "portalpower"
 }
