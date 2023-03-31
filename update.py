@@ -25,9 +25,13 @@ elif tracklist == 0:
     print("old data :(")
   
 def stats(id):
-  user = requests.get(f"https://api.wasteof.money/username-from-id/{id}",  headers=headers).json()["username"]
-  post = requests.get(f"https://api.wasteof.money/users/{user}",  headers=headers).json()["stats"]
-  post["user"] = user
+  post = None
+  user = requests.get(f"https://api.wasteof.money/username-from-id/{id}",  headers=headers).json().get("username", None)
+  if not user:
+    print(user)
+  else:
+    post = requests.get(f"https://api.wasteof.money/users/{user}",  headers=headers).json()["stats"]
+    post["user"] = user
   return post
   
 def prev_stats(user):
@@ -40,6 +44,8 @@ def prev_stats(user):
 def track():
   for item in tracklist:
     x = stats(item)
+    if not x:
+      continue
     y = prev_stats(item)
     print(x,"being updated")
     y["followers"].append(x["followers"])
