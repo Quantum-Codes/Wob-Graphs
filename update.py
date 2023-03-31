@@ -26,10 +26,12 @@ elif tracklist == 0:
   
 def stats(id):
   post = None
-  user = requests.get(f"https://api.wasteof.money/username-from-id/{id}",  headers=headers).json().get("username", None)
-  if not user:
+  user = requests.get(f"https://api.wasteof.money/username-from-id/{id}",  headers=headers).json()
+  if not user.get("username", None):
+    print("!!ERROR ID: ", id)
     print(user)
   else:
+    user = user["username"]
     post = requests.get(f"https://api.wasteof.money/users/{user}",  headers=headers).json()["stats"]
     post["user"] = user
   return post
