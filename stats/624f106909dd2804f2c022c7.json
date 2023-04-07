@@ -1,15 +1,19 @@
 {
   "followers": [
+    8,
     8
   ],
   "following": [
+    2,
     2
   ],
   "posts": [
+    2,
     2
   ],
   "timestamp": [
-    1680274883
+    1680274883,
+    1680878506
   ],
   "name": "chat"
 }
