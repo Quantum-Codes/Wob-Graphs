@@ -5,8 +5,15 @@ headers = {"User-Agent":"@wasteof_bot by @Ankit_Anmol | Contact on wasteof-@anki
 history_struct = {"followers":[], "following":[], "posts":[], "timestamp":[]}
 
 def get_list():
-  return requests.get("https://Wasteof-api-test.quantumcodes.repl.co/track", headers={ "User-Agent" : "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36"}).json()
-
+  try:
+    x = requests.get("https://Wasteof-api-test.quantumcodes.repl.co/track", headers={ "User-Agent" : "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36"})
+    return x.json()
+  except (requests.exceptions.ConnectionError, requests.exceptions.SSLError) as e:
+    print("Bruhhhhhhhh connection/SSL error")
+    print(e)
+  except Exception as e:
+    print(e)
+  
 tracklist = 0
 for i in range(5):
   try:
