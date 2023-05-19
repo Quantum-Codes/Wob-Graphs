@@ -18,15 +18,16 @@ tracklist = 0
 for i in range(5):
   try:
     tracklist = get_list()
-    print("got live data!")
   except Exception as e:
     print(i, e)
     time.sleep(60) #wait for repl to wake up
- 
+    
+    
 if type(tracklist) is list:
+  print("Live data!!")
   with open("tracklist.json", "w") as file:
     file.write(json.dumps(tracklist, indent=2))
-elif tracklist == 0:
+else:
   with open("tracklist.json", "r") as file:
     tracklist = json.load(file)
     print("old data :(")
