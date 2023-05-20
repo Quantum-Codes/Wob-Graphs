@@ -12,7 +12,7 @@ def upload_img(filename, folder, mode):
   with open(f"{folder}/{filename}", "rb") as image_file: 
     img = base64.b64encode(image_file.read())
     
-  if mode = "dark":
+  if mode == "dark":
     token = token_dark #interchanging tokens does nothing special. the point is to reside image uploaded per token to not be ratelimited.
   else:
     token = token_light
