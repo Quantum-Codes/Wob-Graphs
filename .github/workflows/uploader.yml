@@ -36,7 +36,8 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Run
       env:
-        Token: ${{ secrets.TOKEN }}
+        token_dark: ${{ secrets.TOKEN_DARK }}
+        token_light: ${{ secrets.TOKEN_LIGHT }}
       run: |
         python upload.py
 
