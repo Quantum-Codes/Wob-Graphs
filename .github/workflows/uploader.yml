@@ -39,7 +39,7 @@ jobs:
         token_dark: ${{ secrets.TOKEN_DARK }}
         token_light: ${{ secrets.TOKEN_LIGHT }}
       run: |
-        python upload.py
+        #python upload.py
 
     - name: Push to github
       run: |
