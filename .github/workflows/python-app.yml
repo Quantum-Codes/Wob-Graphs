@@ -39,13 +39,6 @@ jobs:
         db_user: ${{ secrets.DB_username }}
         db_pass: ${{ secrets.DB_password }}
       run: |
-        python ping.py
-        echo "Sleep started"
-        sleep 25
-        echo "ping 2"
-        python ping.py
-        echo "Sleep 200s"
-        sleep 200
         python update.py
 
     - name: Push to github
