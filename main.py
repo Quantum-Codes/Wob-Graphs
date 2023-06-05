@@ -10,6 +10,10 @@ db = mysql.connector.connect(
 )
 sql = mydb.cursor()
 
+sql.execute("SELECT userid FROM Wasteof WHERE track = 1;")
+for item in sql:
+  print(item)
+ exit()
 
 def graph(user, type1, light, multi=False):
   if light:
