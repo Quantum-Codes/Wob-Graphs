@@ -1,4 +1,4 @@
-import requests, json, datetime
+import requests, json, datetime, os
 import matplotlib.pyplot as plt
 import mysql.connector
 
@@ -8,7 +8,7 @@ db = mysql.connector.connect(
   password = os.environ["db_pass"],
   database = "testdb"
 )
-sql = mydb.cursor()
+sql = db.cursor()
 
 sql.execute("SELECT userid FROM Wasteof WHERE track = 1;")
 for item in sql:
