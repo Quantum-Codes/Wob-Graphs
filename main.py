@@ -84,10 +84,10 @@ def graph_all(first=1):
     tracklist = get_tracklist()
     print("Got data")
     print(tracklist)
-    exit()
   except:
     with open("tracklist.json", "r") as file:
       tracklist = json.loads(file.read())
+  exit()
       
   for item in tracklist:
     print(item, "dark" if first==0 else "light")
