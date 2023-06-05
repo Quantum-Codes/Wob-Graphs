@@ -1,5 +1,14 @@
 import requests, json, datetime
 import matplotlib.pyplot as plt
+import mysql.connector
+
+db = mysql.connector.connect(
+  host = os.environ["db_host"],
+  user = os.environ["db_user"],
+  password = os.environ["db_pass"],
+  database = "testdb"
+)
+sql = mydb.cursor()
 
 
 def graph(user, type1, light, multi=False):
