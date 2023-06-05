@@ -10,7 +10,7 @@ db = mysql.connector.connect(
 )
 sql = db.cursor()
 
-sql.execute("SELECT userid FROM Wasteof WHERE track = 1;")
+sql.execute("SELECT userid FROM wasteof WHERE track = 1;")
 for item in sql:
   print(item)
 exit()
