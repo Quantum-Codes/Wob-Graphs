@@ -10,33 +10,21 @@ db = mysql.connector.connect(
 )
 sql = db.cursor()
 
-headers = {"User-Agent":"@wasteof_bot by @Ankit_Anmol | Contact on wasteof-@ankit_anmol on github-@Quantum-Codes on discord(you have)"}
+headers = {"User-Agent":"@wasteof_bot by @Quantum-Codes | Contact on wasteof- @quantum-codes, on github- @Quantum-Codes, on discord(you have)"}
 history_struct = {"followers":[], "following":[], "posts":[], "timestamp":[]}
-
-def get_list():
-  try:
-    x = requests.get("https://Wasteof-api-test.quantumcodes.repl.co/track", headers={ "User-Agent" : "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36"})
-    return x.json()
-  except (requests.exceptions.ConnectionError, requests.exceptions.SSLError) as e:
-    print("Bruhhhhhhhh connection/SSL error")
-    print(e)
-  except Exception as e:
-    print(e)
   
-tracklist = 0
-for i in range(5):
-  try:
-    tracklist = get_list()
-  except Exception as e:
-    print(i, e)
-    time.sleep(60) #wait for repl to wake up
-    
-    
-if type(tracklist) is list:
-  print("Live data!!")
+def get_list():
+  sql.execute("SELECT userid FROM wasteof WHERE track = 1;")
+  tracklist = []
+  for item in sql:
+    tracklist.append(item[0])
+  return tracklist
+
+try:
+  tracklist = get_list()
   with open("tracklist.json", "w") as file:
     file.write(json.dumps(tracklist, indent=2))
-else:
+except:
   with open("tracklist.json", "r") as file:
     tracklist = json.load(file)
     print("old data :(")
