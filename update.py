@@ -1,5 +1,14 @@
 import requests, time, json
 from copy import deepcopy
+import mysql.connector
+
+db = mysql.connector.connect(
+  host = os.environ["db_host"],
+  user = os.environ["db_user"],
+  password = os.environ["db_pass"],
+  database = "testdb"
+)
+sql = mydb.cursor()
 
 headers = {"User-Agent":"@wasteof_bot by @Ankit_Anmol | Contact on wasteof-@ankit_anmol on github-@Quantum-Codes on discord(you have)"}
 history_struct = {"followers":[], "following":[], "posts":[], "timestamp":[]}
