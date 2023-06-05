@@ -13,7 +13,7 @@ sql = db.cursor()
 sql.execute("SELECT userid FROM Wasteof WHERE track = 1;")
 for item in sql:
   print(item)
- exit()
+exit()
 
 def graph(user, type1, light, multi=False):
   if light:
