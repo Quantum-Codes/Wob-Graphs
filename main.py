@@ -1,6 +1,21 @@
-import requests, json, datetime
+import requests, json, datetime, os
 import matplotlib.pyplot as plt
+import mysql.connector
 
+db = mysql.connector.connect(
+  host = os.environ["db_host"],
+  user = os.environ["db_user"],
+  password = os.environ["db_pass"],
+  database = "testdb"
+)
+sql = db.cursor()
+
+def get_tracklist():
+  sql.execute("SELECT userid FROM wasteof WHERE track = 1;")
+  tracklist = []
+  for item in sql:
+    tracklist.append(item[0])
+  return tracklist
 
 def graph(user, type1, light, multi=False):
   if light:
@@ -66,12 +81,13 @@ def graph(user, type1, light, multi=False):
 def graph_all(first=1):
   global lines
   try:
-    tracklist = requests.get("https://Wasteof-api-test.quantumcodes.repl.co/track", headers={ "User-Agent" : "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36"}).json()
-  except Exception:
+    tracklist = get_tracklist()
+    print("Got data")
+    print(tracklist)
+  except:
     with open("tracklist.json", "r") as file:
       tracklist = json.loads(file.read())
-
-  tracklist = tuple(set(tracklist))
+      
   for item in tracklist:
     print(item, "dark" if first==0 else "light")
     ab, bc, ac = graph(item, "followers", first), graph(item, "following", first), graph(item, "posts", first) #yes I know good var names. also graph light mode first 

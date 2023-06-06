@@ -26,7 +26,7 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install flake8 pytest requests
+        pip install flake8 pytest requests mysql-connector-python
     - name: Lint with flake8
       run: |
         # stop the build if there are Python syntax errors or undefined names
@@ -34,14 +34,11 @@ jobs:
         # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Run
+      env:
+        db_host: ${{ secrets.DB_host }}
+        db_user: ${{ secrets.DB_username }}
+        db_pass: ${{ secrets.DB_password }}
       run: |
-        python ping.py
-        echo "Sleep started"
-        sleep 25
-        echo "ping 2"
-        python ping.py
-        echo "Sleep 200s"
-        sleep 200
         python update.py
 
     - name: Push to github
