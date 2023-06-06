@@ -28,8 +28,6 @@ except:
   with open("tracklist.json", "r") as file:
     tracklist = json.load(file)
     print("old data :(")
- 
-exit()
 
 def stats(id):
   post = None
