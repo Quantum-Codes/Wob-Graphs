@@ -62,8 +62,9 @@ def graph(user, type1, light, multi=False):
   axes = plt.gca()
   label_x = axes.get_xticklabels()
   if len(label_x) > 25:
+    skip = len(label_x) // 25
     #label_x[1::2] = len(label_x[1::2]) * [""] #alternate position blank. leaves the first item (old method)
-    for label in label_x[::2]: #remove slice and add if enumerate label % 3 = 0 for every 3rd label remove
+    for label in label_x[::skip+1]: #remove slice and add if enumerate label % 3 = 0 for every 3rd label remove
       label.set_visible(False)
   #axes.set_xticklabels(label_x, rotation=45)
   plt.xticks(rotation=45)
