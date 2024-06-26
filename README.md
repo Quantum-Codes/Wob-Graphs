@@ -1,4 +1,5 @@
 # Wob-Graphs
+Note: Now this is stopped from running...
 Graph generator for wasteof_bot on wasteof.money
 <br><br>
 [![Data Update](https://github.com/Quantum-Codes/Wob-Graphs/actions/workflows/python-app.yml/badge.svg)](https://github.com/Quantum-Codes/Wob-Graphs/actions/workflows/python-app.yml)
